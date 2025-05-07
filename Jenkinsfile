@@ -5,12 +5,13 @@ pipeline {
         nodejs 'node23.11.0' // or whatever exact name you see in the NodeJS section of Global Tool Configuration
     }
 
-    stages {
-        stage('Checkout Code') {
-            steps {
-                git credentialsId: 'github-credentials', url: 'https://github.com/rahulcr2020/Playwright-Practice.git'
-            }
+  stages {
+    stage('Checkout Code') {
+        steps {
+            git branch: 'main', url: 'https://github.com/rahulcr2020/Playwright-Practice.git'
         }
+    }
+}
 
         stage('Install Dependencies') {
             steps {
