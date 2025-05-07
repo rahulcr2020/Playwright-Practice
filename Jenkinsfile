@@ -2,16 +2,15 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'node23.11.0' // or whatever exact name you see in the NodeJS section of Global Tool Configuration
+        nodejs 'node23.11.0' // Make sure this matches your Jenkins Node.js installation name
     }
 
-  stages {
-    stage('Checkout Code') {
-        steps {
-            git branch: 'main', url: 'https://github.com/rahulcr2020/Playwright-Practice.git'
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/rahulcr2020/Playwright-Practice.git'
+            }
         }
-    }
-}
 
         stage('Install Dependencies') {
             steps {
@@ -21,21 +20,21 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh 'npm test'
+                sh 'npx playwright install'  // Ensures browsers are installed
+                sh 'npx playwright test'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'npm run build'
+                echo 'Add build steps if needed'
             }
         }
+    }
 
-        // Optional: deploy stage
-        // stage('Deploy') {
-        //     steps {
-        //         sh './deploy.sh'
-        //     }
-        // }
+    post {
+        always {
+            echo 'Pipeline finished.'
+        }
     }
 }
